@@ -21,9 +21,6 @@ describe('Testing date spy library', function () {
 
         // Also:
         expect(new Date().getTime()).toBe(100);
-
-        // Date(Wed Dec 31 1969 20:00:00 GMT-0400 (AST))
-        expect(new Date().getFullYear()).toBe(1969);
     });
 
     it('Expect Fake Time to not match Original Date', function () {
@@ -93,8 +90,5 @@ describe('Test angular support', function () {
 
         // Also:
         expect(new Date().getTime()).toBe(100);
-
-        // Date(Wed Dec 31 1969 20:00:00 GMT-0400 (AST))
-        expect(new Date().getFullYear()).toBe(1969);
     });
 });
