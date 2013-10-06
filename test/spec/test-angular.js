@@ -66,7 +66,7 @@ describe('Test angular support', function () {
     });
 
     afterEach(function () {
-        clock.restore();
+        clock.$restoreDate();
     });
 
     it('Expect $mockDate to return a mock representation of the Date object', function () {

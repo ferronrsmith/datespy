@@ -35,7 +35,7 @@ module.exports = function (grunt) {
             watch: {
                 options: {
                     title: 'Task Complete',  // optional
-                    message: 'Finish Linting, Running Tests & Building Documentation' //required
+                    message: 'Finish Linting & Running Tests' //required
                 }
             }
         }

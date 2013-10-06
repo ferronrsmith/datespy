@@ -19,7 +19,14 @@ As above, but rather than starting the clock at the current timestamp, start at 
 
 ```javascript
 var clock = datespy.useFakeTimers([now, ]prop1, prop2, ...);
+
+// e.g.
+datespy.useFakeTimers(0, "setTimeout", "clearTimeout",
+                                      "setInterval", "clearInterval", "Date");
 ```
+
+
+
 
 Sets the clock start timestamp and names functions to fake. Possible functions are setTimeout, clearTimeout, setInterval, clearInterval, and Date. Can also be called without the timestamp.
 
@@ -163,7 +170,7 @@ Tick the clock ahead ms milliseconds. Causes all timers scheduled within the aff
 ```javascript
 clock.$restoreDate();
 ```
-Restore the faked methods. Call in e.g. tearDown.
+Restore the faked methods and the global date object. Call in e.g. tearDown.
 
 
 Build Status
