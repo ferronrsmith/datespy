@@ -1,5 +1,5 @@
-/*jslint plusplus: true, evil: true, browser: true, forin: false, sloppy: true */
-/*global datespy, module, require, window, global, angular*/
+/*jslint plusplus: true, evil: true, browser: true, forin: false, sloppy: true, unparam: true */
+/*global module, require, window, global, angular, */
 
 /**
  * DateSpy.JS 0.1, 2013/10/01
@@ -20,7 +20,7 @@
  * Inspired by jsUnitMockTimeOut from JsUnit & Sinon.JS Fake Timer
  */
 
-var datespy = datespy || {};
+var datespy = {};
 
 (function (global) {
     var id = 1,
@@ -87,7 +87,7 @@ var datespy = datespy || {};
         if (Object.create) {
             newObject = Object.create(object);
         } else {
-            F = function () {};
+            F = function () { };
             F.prototype = object;
             newObject = new F();
         }
@@ -192,22 +192,21 @@ var datespy = datespy || {};
         },
 
         firstTimerInRange: function (from, to) {
-            var timer, smallest, originalTimer,
-                id;
+            var timer, smallest,
+                tId;
 
-            for (id in this.timeouts) {
-                if (this.timeouts.hasOwnProperty(id)) {
-                    if (!(this.timeouts[id].callAt < from || this.timeouts[id].callAt > to)) {
-                        if (!smallest || this.timeouts[id].callAt < smallest) {
-                            originalTimer = this.timeouts[id];
-                            smallest = this.timeouts[id].callAt;
+            for (tId in this.timeouts) {
+                if (this.timeouts.hasOwnProperty(tId)) {
+                    if (!(this.timeouts[tId].callAt < from || this.timeouts[tId].callAt > to)) {
+                        if (!smallest || this.timeouts[tId].callAt < smallest) {
+                            smallest = this.timeouts[tId].callAt;
 
                             timer = {
-                                func: this.timeouts[id].func,
-                                callAt: this.timeouts[id].callAt,
-                                interval: this.timeouts[id].interval,
-                                id: this.timeouts[id].id,
-                                invokeArgs: this.timeouts[id].invokeArgs
+                                func: this.timeouts[tId].func,
+                                callAt: this.timeouts[tId].callAt,
+                                interval: this.timeouts[tId].interval,
+                                id: this.timeouts[tId].id,
+                                invokeArgs: this.timeouts[tId].invokeArgs
                             };
                         }
                     }
