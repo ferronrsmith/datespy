@@ -353,13 +353,18 @@ datespy.timers = {
     Date: Date
 };
 
+function detectTestFramework() {
+    return undefined !== window.jasmine &&
+        window.angular !== undefined && angular.mock !== undefined;
+}
+
 /**
  * Helps IE run the fake timers. By defining global functions, IE allows
  * them to be overwritten at a later point. If these are not defined like
  * this, overwriting them will result in anything from an exception to browser
  * crash.
  */
-if (/MSIE ([0-9]{1,}[\.0-9]{0,})/.test(navigator.userAgent)) {
+if (/MSIE ([0-9]{1,}[\.0-9]{0,})/.test(navigator.userAgent) || detectTestFramework()) {
     (function () {
         "use strict";
         function setTimeout() {}

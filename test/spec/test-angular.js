@@ -170,18 +170,45 @@ describe('Test angular support', function () {
         expect(dCallback.callCount).toBe(0);
     });
 
-    it('expect time to be zero', function () {
+    it("throws for invalid minutes", function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 10000);
+
+        expect(function () {
+            clock.tick("67:10");
+        }).toThrow();
+
+        expect(dCallback.callCount).toBe(0);
+    });
+
+    it("throws for invalid minutes", function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 10000);
+
+        expect(function () {
+            clock.tick("67:10");
+        }).toThrow();
+
+        expect(dCallback.callCount).toBe(0);
+    });
+
+    it('Expect time to be zero', function () {
         datespy.clock.create(0); // reset clock to the beginning of time
         expect(new Date().getTime()).toBe(0);
     });
 
-    it("Expects date2 to be 3 ticks ahead of date1", function () {
-        var date1, date2;
-        date1 = new datespy.clock.Date();
-        clock.tick(3);
-        date2 = new datespy.clock.Date();
+    it("Expects date epoch time to be 0 if string is empty", function () {
+        clock.tick("");
+        expect(new Date().getTime()).toBe(0);
+    });
 
-        expect(date2.getTime() - date1.getTime()).toBe(3);
+    it('Expect', function () {
+        var dCallback = jasmine.createSpy('dateCallback'),
+            tId;
+        tId = setTimeout(dCallback, 5000);
+        clock.tick(4999);
+        clearTimeout(tId);
+        expect(dCallback.callCount).toBe(0);
     });
 
     it("creates regular date when passing timestamp", function () {
