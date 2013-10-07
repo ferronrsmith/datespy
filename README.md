@@ -1,7 +1,7 @@
 DateSpy.JS
 =======
 
-a simple date mocking library
+A Simple Date Mocking Library
 
 DateSpy.JS API
 ---------------

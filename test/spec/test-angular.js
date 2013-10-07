@@ -32,9 +32,7 @@ describe('Testing date spy library', function () {
     it('Expect that spy will be called', function () {
         var timerCallback = jasmine.createSpy('timerCallback');
 
-        setTimeout(function () {
-            timerCallback();
-        }, 1000);
+        setTimeout(timerCallback, 1000);
 
         expect(timerCallback).not.toHaveBeenCalled();
 
@@ -72,9 +70,7 @@ describe('Test angular support', function () {
     it('Expect $mockDate to return a mock representation of the Date object', function () {
 
         var dCallback = jasmine.createSpy('dateCallback');
-        setTimeout(function () {
-            dCallback();
-        }, 1000);
+        setTimeout(dCallback, 1000);
 
         expect(dCallback).not.toHaveBeenCalled();
 
@@ -86,15 +82,9 @@ describe('Test angular support', function () {
 
     it('Expect Spy object to be called multiple time', function () {
         var dCallback = jasmine.createSpy('dateCallback'),
-            iId = setInterval(function () {
-                dCallback();
-            }, 1000);
+            iId = setInterval(dCallback, 1000);
 
-        clock.tick(1000);
-        clock.tick(1000);
-        clock.tick(1000);
-        clock.tick(1000);
-        clock.tick(1000);
+        clock.tick(5000);
 
         clearInterval(iId);
 
@@ -111,4 +101,73 @@ describe('Test angular support', function () {
         // Also:
         expect(new Date().getTime()).toBe(100);
     });
+
+    it('Expect spy to not be called : Tick has not reached the expected value', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setTimeout(dCallback, 1000);
+
+        clock.tick(999);
+        expect(dCallback).not.toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(0);
+
+        clock.tick(1);
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(1);
+    });
+
+    it('Expect spy to to be called 2 times in 4 second interval : using the date parse functionality', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 4000);
+
+        // passing in 8 seconds
+        clock.tick("08");
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(2);
+    });
+
+    it('Expect spy to to be called 30 times in 4 second interval : using the date parse functionality', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 4000);
+
+        // passing in 2 minutes
+        clock.tick("02:00");
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(30);
+    });
+
+    it('Expect spy to to be called 89 times in 4 second interval : using the date parse functionality', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 4000);
+
+        // passing in 5 minutes 56 seconds
+        clock.tick("05:56");
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(89);
+    });
+
+    it('Expect spy to to be called 21041 times in 4 second interval : using the date parse functionality', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setInterval(dCallback, 4000);
+
+        // passing in 23 hours 22 minutes 45 seconds
+        clock.tick("23:22:45");
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(21041);
+    });
+
+    it('Expect date parse functionality to throw exception when a invalid date format is entered', function () {
+        var dCallback = jasmine.createSpy('dateCallback'),
+            ticker = function () {
+                // invalid time format
+                clock.tick("23:22:45:00");
+            };
+        setInterval(dCallback, 4000);
+
+        // passing in 23 hours 22 minutes 45 seconds
+        expect(ticker).toThrow();
+
+        expect(dCallback).not.toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(0);
+    });
+
 });
