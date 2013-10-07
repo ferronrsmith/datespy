@@ -81,6 +81,26 @@ describe('Test angular support', function () {
         clock.tick(1000);
 
         expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(1);
+    });
+
+    it('Expect Spy object to be called multiple time', function () {
+        var dCallback = jasmine.createSpy('dateCallback'),
+            iId = setInterval(function () {
+                dCallback();
+            }, 1000);
+
+        clock.tick(1000);
+        clock.tick(1000);
+        clock.tick(1000);
+        clock.tick(1000);
+        clock.tick(1000);
+
+        clearInterval(iId);
+
+        expect(dCallback).toHaveBeenCalled();
+        expect(dCallback.callCount).toBe(5);
+
     });
 
     it('Testing Date Spy Tick', function () {
