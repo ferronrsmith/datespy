@@ -8,7 +8,6 @@ module.exports = function (config) {
             'js/lib/angular/angular-stable-latest.js',
             'js/lib/angular/angular-stable-mocks.js',
             'dest/*.js',
-            'test/src/*.js',
             'test/spec/*.js'
         ],
         autoWatch: true,

@@ -17,8 +17,7 @@ module.exports = function (grunt) {
         karma: {
             options: {
                 singleRun: true,
-                browsers: ['PhantomJS'],
-                reporters: 'dots'
+                browsers: ['PhantomJS']
             },
             stable: {
                 configFile: 'config/karma.stable.conf.js'
@@ -48,16 +47,22 @@ module.exports = function (grunt) {
                     'dest/datespy.min.js': ['js/src/datespy.js']
                 }
             }
+        },
+        coveralls: {
+            options: {
+                coverage_dir: 'coverage'
+            }
         }
     });
 
+    grunt.loadNpmTasks('grunt-karma-coveralls');
     grunt.loadNpmTasks('grunt-notify');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('test', ['jslint', 'karma:stable']);
-    grunt.registerTask('default', ['jslint', 'karma:stable', 'uglify', 'karma:minify']);
+    grunt.registerTask('default', ['jslint', 'karma:stable', 'uglify', 'karma:minify', 'coveralls']);
     grunt.registerTask('release', ['uglify', 'karma:minify']);
 
 };

@@ -16,3 +16,4 @@ ius
 .idea
 node_modules
 *.iml
+coverages
