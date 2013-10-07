@@ -176,3 +176,7 @@ Restore the faked methods and the global date object. Call in e.g. tearDown.
 Build Status
 ------------
 [![Build Status](https://travis-ci.org/ferronrsmith/datespy.png?branch=master)](https://travis-ci.org/ferronrsmith/datespy)
+
+Coverage Status
+---------------
+[![Coverage Status](https://coveralls.io/repos/ferronrsmith/datespy/badge.png?branch=master)](https://coveralls.io/r/ferronrsmith/datespy?branch=master)
