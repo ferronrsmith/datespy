@@ -170,4 +170,114 @@ describe('Test angular support', function () {
         expect(dCallback.callCount).toBe(0);
     });
 
+    it('expect time to be zero', function () {
+        datespy.clock.create(0); // reset clock to the beginning of time
+        expect(new Date().getTime()).toBe(0);
+    });
+
+    it("Expects date2 to be 3 ticks ahead of date1", function () {
+        var date1, date2;
+        date1 = new datespy.clock.Date();
+        clock.tick(3);
+        date2 = new datespy.clock.Date();
+
+        expect(date2.getTime() - date1.getTime()).toBe(3);
+    });
+
+    it("creates regular date when passing timestamp", function () {
+        var date = new Date(),
+            fakeDate = new datespy.clock.Date(date.getTime());
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with timestamp", function () {
+        var date = new Date(),
+            fakeDate = datespy.clock.Date(date.getTime());
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing year, month", function () {
+        var date = new Date(2010, 4),
+            fakeDate = new datespy.clock.Date(2010, 4);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with year, month", function () {
+        var date = new Date(2010, 4),
+            fakeDate = datespy.clock.Date(2010, 4);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing y, m, d", function () {
+        var date = new Date(2010, 4, 2),
+            fakeDate = new datespy.clock.Date(2010, 4, 2);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with y, m, d", function () {
+        var date = new Date(2010, 4, 2),
+            fakeDate = datespy.clock.Date(2010, 4, 2);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing y, m, d, h", function () {
+        var date = new Date(2010, 4, 2, 12),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with y, m, d, h", function () {
+        var date = new Date(2010, 4, 2, 12),
+            fakeDate = datespy.clock.Date(2010, 4, 2, 12);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing y, m, d, h, m", function () {
+        var date = new Date(2010, 4, 2, 12, 42),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12, 42);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with y, m, d, h, m", function () {
+        var date = new Date(2010, 4, 2, 12, 42),
+            fakeDate = datespy.clock.Date(2010, 4, 2, 12, 42);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing y, m, d, h, m, s", function () {
+        var date = new Date(2010, 4, 2, 12, 42, 53),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12, 42, 53);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with y, m, d, h, m, s", function () {
+        var date = new Date(2010, 4, 2, 12, 42, 53),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12, 42, 53);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("creates regular date when passing y, m, d, h, m, s, ms", function () {
+        var date = new Date(2010, 4, 2, 12, 42, 53, 498),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12, 42, 53, 498);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
+
+    it("returns regular date when calling with y, m, d, h, m, s, ms", function () {
+        var date = new Date(2010, 4, 2, 12, 42, 53, 498),
+            fakeDate = new datespy.clock.Date(2010, 4, 2, 12, 42, 53, 498);
+
+        expect(fakeDate.getTime()).toBe(date.getTime());
+    });
 });
