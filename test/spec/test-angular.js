@@ -1,4 +1,4 @@
-/*jslint browser : true */
+/*jslint browser : true, evil :true */
 /*global describe, expect, it, beforeEach, afterEach, datespy, spyOn, jasmine, angular */
 var originalDate = new Date();
 
@@ -202,13 +202,29 @@ describe('Test angular support', function () {
         expect(new Date().getTime()).toBe(0);
     });
 
-    it('Expect', function () {
+    it('Expect spy to not have been called when timeout is cleared', function () {
         var dCallback = jasmine.createSpy('dateCallback'),
             tId;
         tId = setTimeout(dCallback, 5000);
         clock.tick(4999);
         clearTimeout(tId);
         expect(dCallback.callCount).toBe(0);
+    });
+
+    it('Expect clock to be reset', function () {
+        var dCallback = jasmine.createSpy('dateCallback');
+        setTimeout(dCallback, 5000);
+        clock.tick(4999);
+        clock.reset();
+        clock.tick(5000);
+        expect(dCallback.callCount).toBe(0);
+    });
+
+    it('Expect function as string to be evaluated', function () {
+        expect(function () {
+            setTimeout('kool', 4000);
+            clock.tick(4000);
+        }).toThrow();
     });
 
     it("creates regular date when passing timestamp", function () {
