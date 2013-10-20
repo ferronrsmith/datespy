@@ -170,6 +170,11 @@ describe('Test angular support', function () {
         expect(dCallback.callCount).toBe(0);
     });
 
+    it('Expect callTimer to throw exception when called without args', function () {
+        // call without args
+        expect(setTimeout).toThrow();
+    });
+
     it("throws for invalid minutes", function () {
         var dCallback = jasmine.createSpy('dateCallback');
         setInterval(dCallback, 10000);
@@ -205,6 +210,7 @@ describe('Test angular support', function () {
     it('Expect spy to not have been called when timeout is cleared', function () {
         var dCallback = jasmine.createSpy('dateCallback'),
             tId;
+        clearTimeout(0);
         tId = setTimeout(dCallback, 5000);
         clock.tick(4999);
         clearTimeout(tId);
@@ -220,9 +226,23 @@ describe('Test angular support', function () {
         expect(dCallback.callCount).toBe(0);
     });
 
+    it('Expect backward compatible Object creation to be used', function () {
+        var oCreate = typeof (Object.create) === 'object' ? Object.create : null;
+        Object.create = null;
+        datespy.clock.create(0);
+        Object.create = oCreate;
+    });
+
+
+    it('Expect an exception to be thrown when invalid value is passed to datespy create', function () {
+        expect(function () {
+            datespy.clock.create(new Date());
+        }).toThrow();
+    });
+
     it('Expect function as string to be evaluated', function () {
         expect(function () {
-            setTimeout('kool', 4000);
+            setTimeout('cool', 4000);
             clock.tick(4000);
         }).toThrow();
     });
@@ -323,4 +343,5 @@ describe('Test angular support', function () {
 
         expect(fakeDate.getTime()).toBe(date.getTime());
     });
+
 });
